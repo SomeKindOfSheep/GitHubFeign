@@ -1,3 +1,5 @@
+package GithubFeign;
+
 import java.util.List;
 
 public class Issue {
