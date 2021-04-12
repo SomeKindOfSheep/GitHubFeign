@@ -13,10 +13,9 @@ public interface SearchClient {
     @Body("%7B\"query\": \"{searchParam}\"%7D")
     SearchResult findBySearchQuery(@HeaderMap Map<String, String> headerMap, @Param("searchParam") String searchParam);*/
 
-    @RequestLine("POST api/as/v1/engines/sa-faq-feed/search")
-    @Body("%7B\"query\": \"{searchParam}\"%7D")
+    @RequestLine("POST api/as/v1/engines/{engineName}/search")
     //TODO limit search query
-    SearchResult findBySearchQuery(@HeaderMap Map<String, String> headerMap, SearchRequest request);
+    SearchResult findBySearchQuery(@HeaderMap Map<String, String> headerMap, @Param("engineName") String engineName, SearchRequest request);
 
     @RequestLine("POST api/as/v1/engines/sa-faq-feed/search")
     @Body("%7B\"query\": \"{searchParam}\"%7D")

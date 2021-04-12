@@ -25,16 +25,17 @@ public class SearchController {
                 // can we trick the deserializer to just return the object
         		.encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
+                // TODO Add interceptor to abstract the bearer token
                 .target(SearchClient.class, "https://dsbggena115v.standardbank.co.za:443/");
 
 
         Map<String, String> headermap = new LinkedHashMap<>();
-        headermap.put("Content-Type", "application/json");
+//        headermap.put("Content-Type", "application/json");
         headermap.put("Authorization", "Bearer search-a8t5kmo7nvg72rzhv4nz91my");
 
 
         // JSON node response
-        SearchResult node = searchClient.findBySearchQuery(headermap, SearchRequest.builder().query("lotto").page(Page.builder().size(1).build()).build());
+        SearchResult node = searchClient.findBySearchQuery(headermap, "sa-faq-feed", SearchRequest.builder().query("lotto").page(Page.builder().size(1).build()).build());
         
         System.out.println(node.getMeta());
 //        SearchResponse response = new SearchResponse();
