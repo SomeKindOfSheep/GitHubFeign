@@ -4,11 +4,13 @@ package Search.controllers;
 import Search.clients.SearchClient;
 import Search.models.SearchResponse;
 import Search.models.SearchResult;
+import Search.models.request.Page;
+import Search.models.request.SearchRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
-
+import feign.jackson.JacksonEncoder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class SearchController {
         SearchClient searchClient = Feign.builder()
                 // TODO limit what returns
                 // can we trick the deserializer to just return the object
+        		.encoder(new JacksonEncoder())
                 .decoder(new JacksonDecoder())
                 .target(SearchClient.class, "https://dsbggena115v.standardbank.co.za:443/");
 
@@ -31,7 +34,7 @@ public class SearchController {
 
 
         // JSON node response
-        SearchResult node = searchClient.findBySearchQuery(headermap, "lotto");
+        SearchResult node = searchClient.findBySearchQuery(headermap, SearchRequest.builder().query("lotto").page(Page.builder().size(1).build()).build());
         
         System.out.println(node.getMeta());
 //        SearchResponse response = new SearchResponse();
