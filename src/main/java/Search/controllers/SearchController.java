@@ -3,6 +3,8 @@ package Search.controllers;
 
 import Search.clients.SearchClient;
 import Search.models.SearchResponse;
+import Search.models.SearchResult;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -29,11 +31,14 @@ public class SearchController {
 
 
         // JSON node response
-        JsonNode node = searchClient.findBySearchQuery(headermap, "lotto");
-        SearchResponse response = new SearchResponse();
-        response.setNode(node);
+        SearchResult node = searchClient.findBySearchQuery(headermap, "lotto");
+        
+        System.out.println(node.getMeta());
+//        SearchResponse response = new SearchResponse();
+//        response.setNode(node);
 
-        JsonNode result = node.get("results");
+//        JsonNode result = node.get("results");
+        JsonNode result = node.getResults();
 
 
         if (result.isArray()) {

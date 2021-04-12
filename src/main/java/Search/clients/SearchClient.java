@@ -1,6 +1,8 @@
 package Search.clients;
 
 import Search.models.SearchResponse;
+import Search.models.SearchResult;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import feign.*;
 
@@ -15,7 +17,7 @@ public interface SearchClient {
     @RequestLine("POST api/as/v1/engines/sa-faq-feed/search")
     @Body("%7B\"query\": \"{searchParam}\"%7D")
     //TODO limit search query
-    JsonNode findBySearchQuery(@HeaderMap Map<String, String> headerMap, @Param("searchParam") String searchParam);
+    SearchResult findBySearchQuery(@HeaderMap Map<String, String> headerMap, @Param("searchParam") String searchParam);
 
     @RequestLine("POST api/as/v1/engines/sa-faq-feed/search")
     @Body("%7B\"query\": \"{searchParam}\"%7D")
